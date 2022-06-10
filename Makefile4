@@ -1,0 +1,24 @@
+
+
+CC = gcc
+CFLAGS = -Wall
+
+all: wordperline
+.PHONY : all
+
+wordperline: my_getchar4.o wordperline.o
+	$(CC) $(CFLAGS) -o wordperline.o my_getchar4.o
+	
+my_getchar4.o : my_getchar4.c
+	$(CC) $(CFLAGS) -c -o my_getchar4.c my_getchar4.o
+	
+wordperline.o: wordperline.c
+	$(CC) $(CFLAGS) -c -o wordperline.c wordperline.o
+	
+debug: clean my_getchar4.c wordperline.c
+	$(CC) $(CFLAGS) -g -o test my_getchar4.c wordperline.c
+	gdb -tui test
+
+.PHONY: clean
+clean:
+	rm -rf *.o
